@@ -4,17 +4,17 @@ import models.Personne;
 
 public class Application {
         public static void main(String[] args) {
-                Personne p1 = new Personne("Alex", "Terrieur");
-                Personne p2 = new Personne("John", "Doeuf");
-                Personne p3 = new Personne("Mac", "Haroni");
+                Personne alex = new Personne("Alex", "Terrieur");
+                Personne john = new Personne("John", "Doeuf");
+                Personne mac = new Personne("Mac", "Haroni");
 
-                System.out.println(p1);
-                System.out.println(p2);
-                System.out.println(p3);
+                System.out.println(alex);
+                System.out.println(john);
+                System.out.println(mac);
 
-                p1.ajouterCopain(p2);
-                p1.ajouterCopain(p3);
+                alex.ajouterCopain(john);
+                alex.ajouterCopain(mac);
 
-                System.out.println(p1);
+                System.out.println(alex);
         }
 }
