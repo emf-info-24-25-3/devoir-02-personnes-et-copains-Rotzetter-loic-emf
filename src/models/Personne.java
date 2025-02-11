@@ -1,57 +1,86 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Personne {
-        private final String prenom;
-        private final String nom;
-        private static final int MAX_COPAINS = 10;
-        private final List<Personne> copains;
+        private final static int MAX_COPAINS = 10;
+        private String nom;
+        private String prenom;
+        private Personne[] copains;
 
-        public Personne(String prenom, String nom) {
+        public Personne(String nom, String prenom) {
+                this.nom = nom;
                 this.prenom = prenom;
-                this.nom = nom.toUpperCase();
-                this.copains = new ArrayList<>();
+                this.copains = new Personne[MAX_COPAINS];
         }
 
-        public String getPrenom() {
-                return prenom;
+        public final String getNom() {
+                return this.nom;
         }
 
-        public String getNom() {
-                return nom;
+        public final String getPrenom() {
+                return this.prenom;
         }
 
-        public boolean ajouterCopain(Personne copain) {
-                if (copains.size() < MAX_COPAINS && !copains.contains(copain)) {
-                        copains.add(copain);
-                        return true;
-                }
-                return false;
-        }
-
-        public boolean supprimerCopain(Personne copain) {
-                return copains.remove(copain); 
-        }
-
-        @Override
         public String toString() {
-                StringBuilder description = new StringBuilder(prenom + " " + nom + " et ses copains ");
-
-                if (copains.isEmpty()) {
-                        description.append("(aucun copain)");
-                } else {
-                        description.append("(");
-                        for (int i = 0; i < copains.size(); i++) {
-                                description.append(copains.get(i).getPrenom()).append(" ")
-                                                .append(copains.get(i).getNom());
-                                if (i < copains.size() - 1) {
-                                        description.append(", ");
-                                }
+                String copainsTexte = "";
+                int compteur = 0;
+                for (int i = 0; i < this.copains.length; i++) {
+                        if (copains[i] != null) {
+                                copainsTexte = copainsTexte + copainsComplet()[compteur];
+                                compteur++;
                         }
-                        description.append(")");
                 }
-                return description.toString();
+                String texte = "";
+                if (nombreDeCopain() == 0) {
+                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains ()";
+                } else if (nombreDeCopain() > 0) {
+                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains (" + copainsTexte + ")";
+                }
+                return texte;
+        }
+
+        public boolean ajouteCopain(Personne copain) {
+                boolean aReussis = false;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] == null) {
+                                copains[i] = copain;
+                                aReussis = true;
+                                break;
+                        }
+                }
+                return aReussis;
+        }
+
+        public boolean retireCopain(Personne copain) {
+                boolean aReussis = false;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] == copain) {
+                                copains[i] = null;
+                                aReussis = true;
+                                break;
+                        }
+                }
+                return aReussis;
+        }
+
+        public int nombreDeCopain() {
+                int compteur = 0;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] != null) {
+                                compteur++;
+                        }
+                }
+                return compteur;
+        }
+
+        public Personne[] copainsComplet() {
+                Personne[] copainsComplet = new Personne[nombreDeCopain()];
+                int compteur = 0;
+                for (int i = 0; i < this.copains.length; i++) {
+                        if (copains[i] != null) {
+                                copainsComplet[compteur] = copains[i];
+                                compteur++;
+                        }
+                }
+                return copainsComplet;
         }
 }

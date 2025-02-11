@@ -4,17 +4,13 @@ import models.Personne;
 
 public class Application {
         public static void main(String[] args) {
-                Personne alex = new Personne("Alex", "Terrieur");
-                Personne john = new Personne("John", "Doeuf");
-                Personne mac = new Personne("Mac", "Haroni");
-
-                System.out.println(alex);
-                System.out.println(john);
-                System.out.println(mac);
-
-                alex.ajouterCopain(john);
-                alex.ajouterCopain(mac);
-
-                System.out.println(alex);
+                Personne personne1 = new Personne("Guenaud", "Filip");
+                Personne personne2 = new Personne("Rotzetter", "Loïc");
+                Personne personne3 = new Personne("Das Silva", "Alex");
+                boolean aReussis = personne1.ajouteCopain(personne3);
+                System.out.println(aReussis);
+                System.out.println(personne1.toString());
+                System.out.println(personne2.toString());
+                System.out.println(personne3.toString());
         }
 }
